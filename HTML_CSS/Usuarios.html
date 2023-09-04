@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet"> <!-- Agrega la fuente Roboto -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"> <!-- Agrega Font Awesome -->
+    <script type="text/javascript" src="DinamicForms.js"></script>
+
+    <style>
+        /* Estilos para la barra de navegación */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #212121;
+            color: white;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Alineación horizontal */
+            z-index: 1; /* Posición z */
+        }
+
+        /* Estilos para el contenedor del logo y el nombre de la empresa */
+        .navbar .logo-and-company {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinea elementos a la izquierda */
+            margin-left: 3%;
+        }
+
+        /* Estilos para el logo */
+        .navbar .logo img {
+            max-height: 60px;
+            margin-left: 50%;
+        }
+
+        /* Estilos para la imagen del nombre de la empresa */
+        .navbar .company-name img {
+            max-height: 30px; /* Personaliza el tamaño según tus necesidades */
+        }
+
+        /* Estilos para los botones de opción */
+        .navbar .nav-options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            font-size: 18px;
+            font-family: 'Roboto', sans-serif; /* Usa la fuente Roboto */
+        }
+
+        .navbar .nav-options li {
+            margin: 0;
+            padding: 0;
+            margin-right: 130px;
+            display: flex;
+            align-items: center;
+            border-left: 2px solid white; /* Línea vertical a la izquierda */
+            height: 60px; /* Aumenta la altura de la línea vertical */
+        }
+
+        .navbar .nav-options a {
+            color: white; /* Color de texto blanco */
+            text-decoration: none; /* Elimina el subrayado */
+            font-size: 30px;
+        }
+
+        .navbar .nav-options i {
+            margin-right: 20%; /* Espacio entre el icono y el texto */
+            margin-left: 30%; /* Espacio entre el borde y el icono */
+        }
+
+        /* Estilos para los botones de perfil e inicio de sesión */
+        .navbar .profile-button,
+        .navbar .login-button {
+            position: absolute;
+            top: 10px; /* Ajusta la posición vertical */
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px; /* Tamaño de fuente para los iconos */
+            margin-left: 10px; /* Espacio entre los botones */
+        }
+
+        /* ubicación del botón de perfil */
+        .navbar .profile-button {
+            right: 50px;
+        }
+
+        /* ubicación del botón de inicio de sesión */
+        .navbar .login-button {
+            right: 10px;
+        }
+
+        /* Contenido de ejemplo para el scroll */
+        body {
+            height: 1500px;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilos para la sección de perfil */
+        .profile-section {
+            margin-left: 0%;
+            margin-right: 0%;
+            padding-left: 0%;
+            padding-right: 0%;
+            margin-top: 150px; /* Espacio desde la barra de navegación */
+            width: 100%;
+            display: block; /* Elemento en bloque */
+        }
+
+        /* Estilos para el título "Perfil" */
+        .profile-title {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center; /* Centrar horizontalmente */
+            display: block; /* Elemento en bloque */
+        }
+
+        /* Estilos para el contenedor de la foto de perfil y los datos de la persona */
+        .content-wrapper {
+            width: 100%;
+            text-align: center; /* Centrar horizontalmente */
+            display: inline-block; /* Elemento en línea */
+        }
+
+        /* Estilos para la tabla de usuarios */
+        .user-table {
+            display: inline-block; /* Elemento en línea */
+            margin: 0 30px; /* Centrar la tabla horizontalmente */
+            border-collapse: collapse;
+            vertical-align: middle; /* Alineación vertical al centro */
+            width: 300px;
+        }
+
+        .user-table th, .user-table td {
+            border: 1px solid #c1c1c1; /* Borde de las celdas */
+            padding: 8px;
+            text-align: left;
+        }
+
+        .user-table th {
+            background-color: #f2f2f2; /* Color de fondo para las cabeceras */
+        }
+
+        .user-table tr:nth-child(even) {
+            background-color: #f2f2f2; /* Color de fondo para filas pares */
+        }
+
+        /* Estilos para la línea vertical */
+        .vertical-line {
+            display: inline-block; /* Elemento en línea */
+            border-left: 2px solid #c1c1c1; /* Línea vertical */
+            border-right: 2px solid #c1c1c1; /* Línea vertical */
+            height: 300px; /* Altura de la línea */
+            margin: 0 50px; /* Espacio entre la línea y el contenido */
+            vertical-align: middle; /* Alineación vertical al centro */
+        }
+
+        /* Estilos para el form-wrapper */
+        #Form-Wrappper {
+            margin: 0 30px; /* Centrar el contenedor horizontalmente */
+            display: inline-block; /* Elemento en línea */
+            width: 300px;
+            height: 280px;
+            vertical-align: middle; /* Alineación vertical al centro */
+        }
+
+        /* Estilos para el contenedor principal con fondo gris claro */
+        .contenedor-principal {
+            width: 100%;
+            height: 100%;
+            background-color: #f5f5f5; /* Color gris claro */
+            padding: 20px;
+            border: 1px solid #ddd; /* Borde del recuadro */
+            margin-top: 10px; /* Espacio desde el título */
+        }
+
+        /* Estilos para los campos (labels e inputs) */
+        .campo {
+            margin-bottom: 10px; /* Espacio entre los campos */
+            margin-left: 70px; /* Espacio entre el borde y el texto */
+        }
+
+        .campo label {
+            display: block; /* Hace que los labels aparezcan en una línea nueva */
+            font-size: 14px; /* Tamaño de letra más pequeño */
+            font-weight: bold; /* Texto en negrita */
+            text-align: left;
+        }
+
+        .campo input {
+            display: block; /* Hace que los inputs aparezcan en una línea nueva */
+        }
+
+        
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo-and-company">
+            <div class="logo">
+                <img src="C:\Users\lukas\OneDrive\Pictures\Screenshots\Captura de pantalla 2023-09-02 143902.png" alt="Logo">
+            </div>
+            <div class="company-name">
+                <img src="C:\Users\lukas\OneDrive\Pictures\Screenshots\Captura de pantalla 2023-09-02 144147.png" alt="Nombre de la Empresa">
+            </div>
+        </div>
+        <ul class="nav-options">
+            <li><i class="fas fa-users"></i><a href="Usuarios.html">Usuarios</a></li>
+            <li><i class="fas fa-home"></i><a href="Pisos.html">Pisos</a></li>
+            <li><i class="fas fa-dollar-sign"></i><a href="Tarifas.html">Tarifas</a></li>
+        </ul>
+        <!-- Botón para ir al Perfil -->
+        <a href="Perfil.html" class="profile-button">
+            <button >
+                <i class="fas fa-user"></i>
+            </button>
+        </a>
+        <!-- Botón de Inicio de Sesión -->
+        <a href="Perfil.html" class="login-button">
+            <button>
+                <i class="fas fa-power-off"></i>
+            </button>
+        </a>
+    </nav>
+
+    <!-- Contenido de ejemplo para hacer scroll -->
+    <div class="profile-section">
+        <h1 class="profile-title">Usuarios</h1>
+        <div class="content-wrapper">
+            <!-- Tabla de Usuarios -->
+            <table class="user-table">
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Rol</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Juan Pérez</td>
+                    <td>30 años</td>
+                    <td>Usuario</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Maria López</td>
+                    <td>25 años</td>
+                    <td>Administrador</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Carlos García</td>
+                    <td>28 años</td>
+                    <td>Usuario</td>
+                </tr>
+            </table>
+            <!-- Línea vertical -->
+            <div class="vertical-line"></div>
+            <div id="Form-Wrappper">
+                <!-- Menú desplegable para seleccionar la operación -->
+                <label for="operacion">Selecciona una operación:</label>
+                <select id="operacion">
+                    <option value="crear">Crear</option>
+                    <option value="borrar">Borrar</option>
+                    <option value="modificar">Modificar</option>
+                </select>
+    
+                <!-- Contenedor principal con fondo gris claro -->
+                <div class="contenedor-principal">
+                    <!-- Contenedor para el formulario de Crear Usuario -->
+                    <div id="crearUsuario" style="display: none;">
+                        <h2>Crear Usuario</h2>
+                        <form>
+                            <div class="campo">
+                                <label for="id">ID:</label>
+                                <input type="text" id="id" name="id">
+                            </div>
+    
+                            <div class="campo">
+                                <label for="nombre">Nombre:</label>
+                                <input type="text" id="nombre" name="nombre">
+                            </div>
+    
+                            <div class="campo">
+                                <label for="edad">Edad:</label>
+                                <input type="text" id="edad" name="edad">
+                            </div>
+    
+                            <div class="campo">
+                                <label for="rol">Rol:</label>
+                                <input type="text" id="rol" name="rol">
+                            </div>
+    
+                            <input type="submit" value="Aceptar">
+                        </form>
+                    </div>
+    
+                    <!-- Contenedor para el formulario de Borrar Usuario -->
+                    <div id="borrarUsuario" style="display: none;">
+                        <h2>Borrar Usuario</h2>
+                        <form>
+                            <div class="campo">
+                                <label for="idBorrar">ID:</label>
+                                <input type="text" id="idBorrar" name="idBorrar">
+                            </div>
+    
+                            <input type="submit" value="Aceptar">
+                        </form>
+                    </div>
+    
+                    <!-- Contenedor para el formulario de Modificar Usuario -->
+                    <div id="modificarUsuario" style="display: none;">
+                        <h2>Modificar Usuario</h2>
+                        <form>
+                            <div class="campo">
+                                <label for="idModificar">ID:</label>
+                                <input type="text" id="idModificar" name="idModificar">
+                            </div>
+    
+                            <div class="campo">
+                                <label for="nombreModificar">Nombre:</label>
+                                <input type="text" id="nombreModificar" name="nombreModificar">
+                            </div>
+    
+                            <div class="campo">
+                                <label for="edadModificar">Edad:</label>
+                                <input type="text" id="edadModificar" name="edadModificar">
+                            </div>
+    
+                            <div class="campo">
+                                <label for="rolModificar">Rol:</label>
+                                <input type="text" id="rolModificar" name="rolModificar">
+                            </div>
+    
+                            <input type="submit" value="Aceptar">
+                        </form>
+                    </div>
+                </div>        
+            </div>
+        </div>
+    </div>
+</body>
+</html>
