@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida</title>
+      
+    <style>
+      	.navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #212121;
+            color: white;
+            padding: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Alineación horizontal */
+            z-index: 1; /* Posición z */
+        }
+
+        /* Estilos para el contenedor del logo y el nombre de la empresa */
+      
+        .navbar .logo-and-company {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinea elementos a la izquierda */
+            margin-left: 3%;
+        }
+      
+      	.navbar .logo img {
+            max-height: 60px;
+            margin-left: 50%;
+        }
+
+        /* Estilos para la imagen del nombre de la empresa */
+        .navbar .company-name img {
+            max-height: 30px; /* Personaliza el tamaño según tus necesidades */
+        }
+
+        /* Estilos para los botones de opción */
+        .navbar .nav-options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            font-size: 18px;
+            font-family: 'Roboto', sans-serif; /* Usa la fuente Roboto */
+        }
+      
+      	.navbar .nav-options li {
+            margin: 0;
+            padding: 0;
+            margin-right: 130px;
+            display: flex;
+            align-items: center;
+            border-left: 2px solid white; /* Línea vertical a la izquierda */
+            height: 60px; /* Aumenta la altura de la línea vertical */
+        }
+
+        .navbar .nav-options a {
+            color: white; /* Color de texto blanco */
+            text-decoration: none; /* Elimina el subrayado */
+            font-size: 30px;
+        }
+
+        .navbar .nav-options i {
+            margin-right: 20%; /* Espacio entre el icono y el texto */
+            margin-left: 30%; /* Espacio entre el borde y el icono */
+        }
+      
+      	.navbar .profile-button,
+        .navbar .login-button {
+            position: absolute;
+            top: 10px; /
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            margin-left: 10px; 
+        }
+      
+        .navbar .profile-button {
+            right: 50px;
+        }
+
+        .navbar .login-button {
+            right: 10px;
+        }
+      
+    	body {
+            font-family: Arial, sans-serif;
+            background-color: #fff; /* Fondo blanco */
+            color: #000; /* Texto negro */
+            margin: 0;
+            padding: 0;
+        }
+
+       	.button-container {
+           	display: flex;
+            justify-content: space-between;
+            max-width: 400px; /* Ancho máximo para mantener el diseño limpio */
+            margin: 0 auto; /* Centrar en la página */
+            padding: 150px;
+        }
+
+        .column {
+            flex: 1;
+            text-align: center;
+        }
+
+        button {
+            background-color: #000; /* Fondo negro para botones */
+            color: #fff; /* Texto blanco para botones */
+            border: none;
+            border-radius: 3px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: #333; /* Cambio de color al pasar el mouse */
+        }
+
+        p {
+            font-weight: bold;
+        }
+
+   </style>
+</head>
+
+<body>
+  	<nav class="navbar">
+        <div class="logo-and-company">
+            <div class="logo">
+                <img src="C:\Users\lukas\OneDrive\Pictures\Screenshots\Captura de pantalla 2023-09-02 143902.png" alt="Logo">
+            </div>
+            <div class="company-name">
+                <img src="C:\Users\lukas\OneDrive\Pictures\Screenshots\Captura de pantalla 2023-09-02 144147.png" alt="Nombre de la Empresa">
+            </div>
+        </div>
+        <ul class="nav-options">
+            <li><i class="fas fa-users"></i><a href="Usuarios.html">Usuarios</a></li>
+            <li><i class="fas fa-home"></i><a href="Pisos.html">Pisos</a></li>
+            <li><i class="fas fa-dollar-sign"></i><a href="Tarifas.html">Tarifas</a></li>
+        </ul>
+        <!-- Botón para ir al Perfil -->
+        <a href="Perfil.html" class="profile-button">
+            <button >
+                <i class="fas fa-user"></i>
+            </button>
+        </a>
+        <!-- Botón de Inicio de Sesión -->
+        <a href="Perfil.html" class="login-button">
+            <button>
+                <i class="fas fa-power-off"></i>
+            </button>
+        </a>
+    </nav>
+    <div class="button-container">
+      	<div class="column">
+            <p>
+              Bienvenido a Car Park!<br><br>
+              Selecciona tu rol a continuacion ->
+              
+        </div>
+        <div class="column">
+            <p>Eres Cliente?</p>
+            <button onclick="window.location.href='Tarifas.html'">Ver Tarifas</button>
+            <p>Trabajas con nosotros?</p>
+            <button onclick="window.location.href='Login.html'">Iniciar Sesión</button>
+            <button onclick="window.location.href='Login.html'">Otro Botón de Login</button>
+        </div>
+    </div>
+</body>
+
+</html>
