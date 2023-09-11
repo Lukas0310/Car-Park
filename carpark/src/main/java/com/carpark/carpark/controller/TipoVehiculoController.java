@@ -31,14 +31,14 @@ public class TipoVehiculoController {
                                     @RequestParam("areaVehiculo") float areaVehiculo,
                                     @RequestParam("tarifa") float tarifa){
         tipoVehiculoService.agregarTipoVehiculo(new TipoVehiculo(tipoVehiculoNombre, areaVehiculo, tarifa));
-        return "redirect:/tipoVehiculo/actualizar";
+        return "redirect:/tipoVehiculo/mostrar";
     }
 
     //Borra un tipo de vehiculo
     @PostMapping("/borrar")
     public String borrarTipoVehiculo(@RequestParam("id") Long id){
         tipoVehiculoService.borrarTipoVehiculo(id);
-        return "redirect:/tipoVehiculo/actualizar";
+        return "redirect:/tipoVehiculo/mostrar";
     }
 
     //Modifica un tipo de vehiculo
@@ -66,11 +66,11 @@ public class TipoVehiculoController {
             tipoVehiculo.setTarifa(Float.parseFloat(tarifa));
         }
         tipoVehiculoService.agregarTipoVehiculo(tipoVehiculo);
-        return "redirect:/tipoVehiculo/actualizar";
+        return "redirect:/tipoVehiculo/mostrar";
     }
 
     //Actualiza la pagina
-    @GetMapping("/actualizar")
+    @GetMapping("/mostrar")
     public String actualizarPagina(Model model){
         model.addAttribute("tipoVehiculos", tipoVehiculoService.listarTipoVehiculo());
         return "tipo-vehiculo";
