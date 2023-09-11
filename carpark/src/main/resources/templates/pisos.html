@@ -198,6 +198,15 @@
             display: block; /* Hace que los inputs aparezcan en una línea nueva */
         }
 
+        /*mismo estilo para la lista de tipos de vehiculos que los inputs*/
+        .campo select {
+            display: block; /* Hace que los inputs aparezcan en una línea nueva */
+        }
+
+        /* mismo ancho de la lista de tipos de vehiculos que los inputs */
+        .campo select {
+            width: 70%;
+        }
         
     </style>
 </head>
@@ -212,9 +221,8 @@
             </div>
         </div>
         <ul class="nav-options">
-            <li><i class="fas fa-users"></i><a href="Usuarios.html">Usuarios</a></li>
-            <li><i class="fas fa-home"></i><a href="Pisos.html">Pisos</a></li>
-            <li><i class="fas fa-dollar-sign"></i><a href="Tarifas.html">Tarifas</a></li>
+            <li><i class="fas fa-users"></i><a href="/tipoVehiculo/actualizar">Tipos</a></li>
+            <li><i class="fas fa-home"></i><a href="/pisos/mostrar">Pisos</a></li>
         </ul>
         <!-- Botón para ir al Perfil -->
         <a href="Perfil.html" class="profile-button">
@@ -232,33 +240,23 @@
 
     <!-- Contenido de ejemplo para hacer scroll -->
     <div class="profile-section">
-        <h1 class="profile-title">Usuarios</h1>
+        <h1 class="profile-title">Pisos</h1>
         <div class="content-wrapper">
             <!-- Tabla de Usuarios -->
             <table class="user-table">
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Edad</th>
-                    <th>Rol</th>
+                    <th>Piso</th>
+                    <th>Tipo</th>
+                    <th>Capacidad</th>
+                    <th>Area</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Juan Pérez</td>
-                    <td>30 años</td>
-                    <td>Usuario</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Maria López</td>
-                    <td>25 años</td>
-                    <td>Administrador</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Carlos García</td>
-                    <td>28 años</td>
-                    <td>Usuario</td>
+                <tr th:each="piso : ${pisos}">
+                    <td th:text="${piso.id}"></td>
+                    <td th:text="${piso.piso}"></td>
+                    <td th:text="${piso.tipoVehiculo.tipoVehiculo}"></td>
+                    <td th:text="${piso.getCapacidad}"></td>
+                    <td th:text="${piso.area}"></td>
                 </tr>
             </table>
             <!-- Línea vertical -->
@@ -270,7 +268,6 @@
                     <option value="crear">Crear</option>
                     <option value="borrar">Borrar</option>
                     <option value="modificar">Modificar</option>
-                    <option value="ver">Ver</option>
                 </select>
     
                 <!-- Contenedor principal con fondo gris claro -->
@@ -284,14 +281,20 @@
                                 <input type="text" id="id" name="numPiso">
                             </div>
     
+                            <!--lista de tipos de vehiculos-->
                             <div class="campo">
-                                <label for="nombre">Tipo de vehiculo:</label>
-                                <input type="text" id="nombre" name="tipoVehiculo">
+                                <label for="tipoVehiculo">Tipo de vehiculo:</label>
+                                <select id="tipoVehiculo" name="tipoVehiculo">
+                                    <option value=""></option>"
+                                    <th:block th:each="tipoVehiculo : ${tipoVehiculos}">
+                                        <option th:value="${tipoVehiculo.tipoVehiculo}" th:text="${tipoVehiculo.tipoVehiculo}"></option>
+                                    </th:block>
+                                </select>
                             </div>
     
                             <div class="campo">
-                                <label for="edad">Capacidad:</label>
-                                <input type="text" id="edad" name="capacidad">
+                                <label for="edad">Area:</label>
+                                <input type="text" id="edad" name="area">
                             </div>
     
                             <input type="submit" value="Aceptar">
@@ -303,7 +306,7 @@
                         <h2>Borrar piso</h2>
                         <form action="borrar" method="POST">
                             <div class="campo">
-                                <label for="idBorrar">Numero del piso:</label>
+                                <label for="idBorrar">ID del piso:</label>
                                 <input type="text" id="idBorrar" name="idBorrar">
                             </div>
     
@@ -324,14 +327,20 @@
                                 <input type="text" id="numPiso" name="numPiso">
                             </div>
     
+                            <!--lista de tipos de vehiculos-->
                             <div class="campo">
                                 <label for="tipoVehiculo">Tipo de vehiculo:</label>
-                                <input type="text" id="tipoVehiculo" name="tipoVehiculo">
+                                <select id="tipoVehiculo" name="tipoVehiculo">
+                                    <option value=""></option>"
+                                    <th:block th:each="tipoVehiculo : ${tipoVehiculos}">
+                                        <option th:value="${tipoVehiculo.tipoVehiculo}" th:text="${tipoVehiculo.tipoVehiculo}"></option>
+                                    </th:block>
+                                </select>
                             </div>
     
                             <div class="campo">
-                                <label for="capacidad">Capacidad:</label>
-                                <input type="text" id="capacidad" name="capacidad">
+                                <label for="capacidad">Area:</label>
+                                <input type="text" id="capacidad" name="area">
                             </div>
     
                             <input type="submit" value="Aceptar">
@@ -349,7 +358,8 @@
             var crearUsuarioDiv = document.getElementById("crearUsuario");
             var borrarUsuarioDiv = document.getElementById("borrarUsuario");
             var modificarUsuarioDiv = document.getElementById("modificarUsuario");
-            
+            crearUsuarioDiv.style.display = "block";
+
 
             // Evento de cambio en la selección de operación
             operacionSelect.addEventListener("change", function () {
