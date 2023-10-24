@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.carpark.carpark.model.Piso;
 import com.carpark.carpark.model.TipoVehiculo;
+import com.carpark.carpark.model.Vehiculo;
 import com.carpark.carpark.repository.PisoRepository;
 import com.carpark.carpark.repository.TipoVehiculoRepository;
+import com.carpark.carpark.repository.VehiculoRepository;
 
 @Component
 public class DBInit implements CommandLineRunner {
@@ -17,6 +19,9 @@ public class DBInit implements CommandLineRunner {
 
     @Autowired
     private TipoVehiculoRepository tipoVehiculoRepository;
+
+    @Autowired
+    private VehiculoRepository VehiculoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -30,7 +35,7 @@ public class DBInit implements CommandLineRunner {
         pisoRepository.save(new Piso(1, 160, tipoVehiculoRepository.findByTipoVehiculo("vehiculo")));
         pisoRepository.save(new Piso(2, 192, tipoVehiculoRepository.findByTipoVehiculo("camion")));
         pisoRepository.save(new Piso(3, 100, tipoVehiculoRepository.findByTipoVehiculo("moto")));
-        
+       
     }
 
 }

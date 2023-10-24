@@ -68,7 +68,7 @@ public class TipoVehiculoController {
         tipoVehiculoService.agregarTipoVehiculo(tipoVehiculo);
         return "redirect:/tipoVehiculo/mostrar";
     }
-
+    
     //Actualiza la pagina
     @GetMapping("/mostrar")
     public String actualizarPagina(Model model){

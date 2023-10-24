@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.carpark.carpark.model.Piso;
 import com.carpark.carpark.model.TipoVehiculo;
 import com.carpark.carpark.service.PisoService;
@@ -73,5 +72,6 @@ public class PisosController {
         return "redirect:/pisos/mostrar";
 
     }
+
     
 }

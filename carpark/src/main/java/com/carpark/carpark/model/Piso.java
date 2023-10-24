@@ -1,9 +1,13 @@
 package com.carpark.carpark.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Piso {
@@ -15,10 +19,14 @@ public class Piso {
     private int piso;
 	private int area;
     private int capacidad = 0;
+	private int disponibles = capacidad;
 
 	//llave foranea
 	@ManyToOne
 	TipoVehiculo tipoVehiculo;
+
+	@OneToMany(mappedBy = "piso")
+	List<Vehiculo> vehiculos = new ArrayList<>();
 
 	public Piso() {
 	}
@@ -28,6 +36,7 @@ public class Piso {
 		this.area = area;
 		this.tipoVehiculo = tipoVehiculo;
 		actualizarCapacidad();
+		setDisponibles();
 	}
 
 	public Piso(int piso, int area) {
@@ -65,7 +74,6 @@ public class Piso {
 		actualizarCapacidad();
 	}
 
-
 	public TipoVehiculo getTipoVehiculo() {
 		return tipoVehiculo;
 	}
@@ -76,9 +84,18 @@ public class Piso {
 		actualizarCapacidad();
 	}
 
-	//retornar la capacidad actual del piso
 	public void actualizarCapacidad (){
 		capacidad =  (int) (area / tipoVehiculo.getAreaVehiculo());
+	}
+
+	public int getDisponibles() {
+		actualizarCapacidad();
+		return capacidad - vehiculos.size();
+	}
+
+	public void setDisponibles(){
+		actualizarCapacidad();
+		this.disponibles = capacidad - vehiculos.size();
 	}
 	
 }

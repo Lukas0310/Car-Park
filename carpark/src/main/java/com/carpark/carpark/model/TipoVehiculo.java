@@ -21,6 +21,9 @@ public class TipoVehiculo {
     @OneToMany(mappedBy = "tipoVehiculo")
     List<Piso> pisos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "tipoVehiculo")
+    List<Vehiculo> vehiculos = new ArrayList<>();
+
     public TipoVehiculo() {
     }
 
