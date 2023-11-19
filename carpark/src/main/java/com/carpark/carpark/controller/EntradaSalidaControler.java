@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.carpark.carpark.model.Factura;
 import com.carpark.carpark.model.FormData;
+import com.carpark.carpark.model.InfoPiso;
 import com.carpark.carpark.model.Piso;
 import com.carpark.carpark.model.Placa;
 import com.carpark.carpark.model.TipoVehiculo;
@@ -41,7 +42,7 @@ public class EntradaSalidaControler {
 
     // registra una entrada
     @PostMapping("/entrada")
-    @CrossOrigin("http://localhost:4200/")
+    @CrossOrigin("http://localhost:4200/") 
     public ResponseEntity<VehiculoRespuesta> registrarEntrada(@RequestBody FormData formData) {
 
         HttpHeaders responseHeaders = new HttpHeaders();
@@ -81,7 +82,7 @@ public class EntradaSalidaControler {
 
     }
 
-    // // registra una salida
+    // retorna la factura de un vehiculo
     @PostMapping("/factura")
     @CrossOrigin("http://localhost:4200/")
     public ResponseEntity<Factura> getFactura(@RequestBody Placa placa){
@@ -91,7 +92,6 @@ public class EntradaSalidaControler {
             // Recupera el vehiculo
             Vehiculo vehiculo = entradaSalidaService.recuperarVehiculo(placa.placa); 
 
-            // Si el vehiculo no existe, devuelve un codigo en el header = -1 que dice que no existe
             if (vehiculo == null) {
                 responseHeaders.set("Vehiculo", "no existe");
                 return ResponseEntity.status(409).headers(responseHeaders).body(null);
@@ -105,7 +105,6 @@ public class EntradaSalidaControler {
             factura.horaSalida = LocalDateTime.now().format(formato);
             factura.precio = vehiculo.getValorAPagar();
 
-            responseHeaders.set("Vehiculo", "existe");
             return ResponseEntity.ok().headers(responseHeaders).body(factura);
 
     }
@@ -120,7 +119,6 @@ public class EntradaSalidaControler {
         // Recupera el vehiculo
         Vehiculo vehiculo = entradaSalidaService.recuperarVehiculo(placa.placa); 
 
-        // Si el vehiculo no existe, devuelve un codigo en el header = -1 que dice que no existe
         if (vehiculo == null) {
             responseHeaders.set("Vehiculo", "no existe");
             return ResponseEntity.status(409).headers(responseHeaders).body(null);
@@ -129,7 +127,7 @@ public class EntradaSalidaControler {
         // Si el vehiculo existe, elimina el vehiculo
         entradaSalidaService.borrarVehiculo(vehiculo);
        
-        responseHeaders.set("Vehiculo", "existe");
+        //responseHeaders.set("Vehiculo", "existe");
         return ResponseEntity.ok().headers(responseHeaders).body(null);
 
     }
@@ -151,26 +149,18 @@ public class EntradaSalidaControler {
 
         return tiposString;
     }
-
-    // // retorna todos los vehiculos
-    // @GetMapping("/getAllVehiculos")
-    // @CrossOrigin("http://localhost:4200/")
-    // public List<Vehiculo> getAllVehiculos(){
-
-    //     // Obtener la lista de tipos de vehículo
-    //     Iterable<Vehiculo> vehiculos = entradaSalidaService.listarVehiculos();
-
-    //     // Crear una lista para almacenar los nombres de los tipos de vehículo
-    //     List<Vehiculo> vehiculosList = new ArrayList<>();
-
-    //     // Recorrer la lista de tipos y convertirlos a cadenas
-    //     for (Vehiculo vehiculo : vehiculos) {
-    //         vehiculosList.add(vehiculo);
-    //     }
-
-    //     return vehiculosList;
-    // }
     
-
+    // devuelve la informacion de todos los pisos
+    @GetMapping("/info")
+    @CrossOrigin("http://localhost:4200/")
+    public List<InfoPiso> infoPisos() {
+        
+        List<InfoPiso> infoPisos = new ArrayList<InfoPiso>();
+        List<Piso> pisos = pisoService.listarPisos();
+        for (Piso piso : pisos) {
+            infoPisos.add(new InfoPiso(piso.getId(), piso.getPiso(), piso.getCapacidad(), piso.getDisponibles()));
+        }
+        return infoPisos;
+    }
     
 }

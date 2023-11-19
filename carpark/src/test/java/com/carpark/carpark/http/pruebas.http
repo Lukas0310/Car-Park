@@ -1,6 +1,6 @@
-POST http://localhost:8080/entradasalida/factura HTTP/1.1
+POST http://localhost:8080/entradasalida/salida HTTP/1.1
 content-type: application/json
 
 {
-    "placa": "ABC123",
+    "placa": "ABC123"
 }
