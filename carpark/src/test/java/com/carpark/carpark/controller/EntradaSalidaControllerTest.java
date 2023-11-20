@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +31,12 @@ import com.carpark.carpark.repository.VehiculoRepository;
 
 @ActiveProfiles("integrationtest")
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-@SpringBootTest(webEnvironment = WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class EntradaSalidaControllerTest {
     
+    @LocalServerPort
+    private int port;
+
     @Autowired
     private TestRestTemplate rest;
 
@@ -65,7 +69,7 @@ public class EntradaSalidaControllerTest {
     @Test
     void entrada() {
         FormData formData = new FormData("123456789", "ABC123", "vehiculo", "Rojo", "Mazda");
-        ResponseEntity<VehiculoRespuesta> resp = rest.postForEntity("http://localhost:8080/entradasalida/entrada", formData, VehiculoRespuesta.class);
+        ResponseEntity<VehiculoRespuesta> resp = rest.postForEntity("http://localhost:" + port + "/entradasalida/entrada", formData, VehiculoRespuesta.class);
 
         // Verificar si el cuerpo de la respuesta no es nulo antes de acceder a sus métodos
         if (resp.getBody() != null) {
@@ -77,7 +81,7 @@ public class EntradaSalidaControllerTest {
     @Test
     void factura(){
         Placa placa = new Placa("ABC123");
-        ResponseEntity<Factura> resp = rest.postForEntity("http://localhost:8080/entradasalida/factura", placa, Factura.class);
+        ResponseEntity<Factura> resp = rest.postForEntity("http://localhost:" + port + "/entradasalida/factura", placa, Factura.class);
         // Verificar si el cuerpo de la respuesta no es nulo antes de acceder a sus métodos
         if (resp.getBody() != null) {
             Factura factura = new Factura("ABC123", resp.getBody().getHoraEntrada(), resp.getBody().getHoraSalida(), resp.getBody().getPrecio());
@@ -88,13 +92,13 @@ public class EntradaSalidaControllerTest {
     @Test
     void salida(){
         Placa placa = new Placa("ABC1234");
-        ResponseEntity<VehiculoRespuesta> resp = rest.postForEntity("http://localhost:8080/entradasalida/salida", placa, VehiculoRespuesta.class);
+        ResponseEntity<VehiculoRespuesta> resp = rest.postForEntity("http://localhost:" + port + "/entradasalida/salida", placa, VehiculoRespuesta.class);
         assertEquals(null, resp.getBody());
     }
 
     @Test
     void getAllTiposvehiculo(){
-        List<String> resp = rest.getForObject("http://localhost:8080/entradasalida/getAllTiposvehiculo", List.class);
+        List<String> resp = rest.getForObject("http://localhost:" + port + "/entradasalida/getAllTiposvehiculo", List.class);
         List<String> tiposVehiculo = List.of("vehiculo", "camion", "moto");
         assertEquals(tiposVehiculo, resp);
     }
@@ -102,7 +106,7 @@ public class EntradaSalidaControllerTest {
 @Test
 void getAllPisos(){
     ResponseEntity<List<InfoPiso>> response = rest.exchange(
-            "http://localhost:8080/entradasalida/info",
+            "http://localhost:" + port + "/entradasalida/info",
             HttpMethod.GET,
             null,
             new ParameterizedTypeReference<List<InfoPiso>>() {}
