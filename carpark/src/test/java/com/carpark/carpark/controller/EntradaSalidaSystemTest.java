@@ -68,7 +68,7 @@ public class EntradaSalidaSystemTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-gpu");
         options.addArguments("--disable-extensions");
-
+        options.addArguments("--headless");
         // se establece la ruta del driver
         System.setProperty("webdriver.chrome.driver", "C:\\Users\\lukas\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
 
